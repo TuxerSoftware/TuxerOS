@@ -54,9 +54,9 @@ override KCFLAGS += \
     -m64 \
     -march=x86-64 \
     -mno-80387 \
-    -mno-mmx \
-    -mno-sse \
-    -mno-sse2 \
+    -mmmx \
+    -msse \
+    -msse2 \
     -mno-red-zone \
     -Wno-old-style-declaration 
 

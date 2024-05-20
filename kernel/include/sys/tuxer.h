@@ -2,6 +2,7 @@
 #define TUXER_H
 
 #include <limine.h>
+#include <kernel.h>
 
 // VERSION INFO
 #define TUXER_VERSION_MAJOR 0
@@ -10,42 +11,29 @@
 #define VERSION_CODENAME "Jelly-Cow"
 #define VERSION_STRING "0.1.0-Jelly-Cow"
 
-// REQUESTS
-__attribute__((used, section(".requests")))
-static volatile LIMINE_BASE_REVISION(2);
+// REQUEST MARKERS
+__attribute__((used, section(".requests_start_marker")))
+static volatile LIMINE_REQUESTS_START_MARKER;
 
-__attribute__((used, section(".requests")))
-volatile static struct limine_framebuffer_request framebuffer_request = {
-    .id = LIMINE_FRAMEBUFFER_REQUEST,
-    .revision = 0
-};
-
-volatile static struct limine_kernel_file_request kernel = {
-    .id = LIMINE_KERNEL_FILE_REQUEST,
-    .revision = 0
-};
-
-
-__attribute__((used, section(".requests")))
-volatile static struct limine_hhdm_request hhdm_request = {
-    .id = LIMINE_HHDM_REQUEST,
-    .revision = 0
-};
-
-__attribute__((used, section(".requests")))
-volatile static struct limine_module_request module_request = {
-    .id = LIMINE_MODULE_REQUEST,
-    .revision = 0
-};
+__attribute__((used, section(".requests_end_marker")))
+static volatile LIMINE_REQUESTS_END_MARKER;
 
 
 
 // MODULE INDEXES
 #define MODULE_INDEX_RAMFS 0
 
-// LIMINE OBJECTS
+// GET REQUESTS
 struct limine_framebuffer *getFramebuffer();
 struct limine_file *getModule(int index);
 struct limine_file *getKernel();
+
+// GET RESPONSES
+struct limine_framebuffer_response *getFramebufferResponse();
+struct limine_module_response *getModuleResponse();
+struct limine_kernel_file_response *getKernelResponse();
+
+// CHECKS
+bool isBaseRevisionSupported();
 
 #endif // TUXER_H
