@@ -3,7 +3,7 @@ override MAKEFLAGS += -rR
 
 # This is the name that our final kernel executable will have.
 # Change as needed.
-override KERNEL := kernel
+override KERNEL := tuxer
 
 # Convenience macro to reliably declare user overridable variables.
 define DEFAULT_VAR =
@@ -57,7 +57,8 @@ override KCFLAGS += \
     -mno-mmx \
     -mno-sse \
     -mno-sse2 \
-    -mno-red-zone
+    -mno-red-zone \
+    -Wno-old-style-declaration 
 
 # Internal C preprocessor flags that should not be changed by the user.
 override KCPPFLAGS := \
