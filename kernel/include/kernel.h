@@ -12,6 +12,11 @@
 #include "std/stdio.h"
 #include "io/logging.h"
 #include "math/conversion.h"
+#include "cpu/cpu.h"
+#include "utils/defs.h"
+#include "arch/x64/gdt.h"
+#include "cpu/lock.h"
+
 
 typedef double f64;
 typedef float f32;

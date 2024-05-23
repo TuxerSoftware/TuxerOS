@@ -37,6 +37,8 @@ void _start(void) {
         0
     );
 
+    init_gdt();
+
     struct limine_file *file = getKernel();
 
     {
