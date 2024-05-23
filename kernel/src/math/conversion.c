@@ -1,17 +1,17 @@
 #include <kernel.h>
 
-int bytesToKB(int bytes) {
+double bytesToKB(double bytes) {
     return bytes / BYTE_TO_KB;
 }
 
-int kbToMB(int kilobytes) {
+double kbToMB(double kilobytes) {
     return kilobytes / KB_TO_MB;
 }
 
-int kbToBytes(int kilobytes) {
+double kbToBytes(double kilobytes) {
     return kilobytes * BYTE_TO_KB;
 }
 
-int mbToKB(int megabytes) {
+double mbToKB(double megabytes) {
     return megabytes * KB_TO_MB;
 }

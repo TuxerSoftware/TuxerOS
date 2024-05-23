@@ -2,6 +2,8 @@
 
 struct flanterm_context *ft_ctx;
 
+extern void kmain();
+
 void _start(void) {
     
     if (isBaseRevisionSupported() == false) {
@@ -37,9 +39,21 @@ void _start(void) {
 
     struct limine_file *file = getKernel();
 
-    
+    {
+        double file_size = kbToMB(bytesToKB((double)file->size));
 
-    ok("Kernel file: %s, Size %dKB, Address: %p, CMD-Line: %s\n", file->path, bytesToKB(file->size), file->address, file->cmdline);
+        int64_t mb_size = (int64_t)file_size;
+        double kb_size = file_size - (double)mb_size;
+
+        ok("Kernel Path: %s, Kernel Address: %p, Kernel Size: %dMB and %.0fKB, Complete Size %.3fMB, CMD Line: %s\n", file->path, file->address, mb_size, kb_size * 1000, file_size , file->cmdline);
+        // NOTE: There os a wierd bug where I cant get the KB size over the decimal point. So I just multiply by a 1000 to get the 
+        // first there digits after the decimal point infront of it :P. Also then I print the double with .0 so no decimal points.
+        // This is very wierd ngl.
+    }
+
+
+    // This runs the kmain function from kmain.c remember that the kmain function is only called after everything initializes.
+    kmain();
 
     hlt();
 }

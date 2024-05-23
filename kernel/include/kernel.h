@@ -13,6 +13,9 @@
 #include "io/logging.h"
 #include "math/conversion.h"
 
+typedef double f64;
+typedef float f32;
+
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
