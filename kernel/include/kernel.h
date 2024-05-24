@@ -16,6 +16,7 @@
 #include "utils/defs.h"
 #include "arch/x64/gdt.h"
 #include "cpu/lock.h"
+#include "arch/x64/idt/idt.h"
 
 
 typedef double f64;
