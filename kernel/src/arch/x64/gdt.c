@@ -1,23 +1,16 @@
 #include <kernel.h>
 
-
 struct comp_packed {
-    segment_descriptor gdts[5];
-    system_segment_descriptor tss;
+    segment_descriptor_t gdts[5];
+    system_segment_descriptor_t tss;
 } gdt;
 
-struct comp_packed {
-    uint16_t size;
-    uintptr_t gdt_ptr;
-} gdtr;
-
-void init_gdt(void)
-{
+void init_gdt() {
     // null descriptor, off = 0
-    gdt.gdts[0] = (segment_descriptor){ 0 };
+    gdt.gdts[0] = (segment_descriptor_t){ 0 };
 
     // 64 bit kernel code segment, off = 8
-    gdt.gdts[1] = (segment_descriptor){
+    gdt.gdts[1] = (segment_descriptor_t){
         0, 0, 0,
         // Present, Segment, Executable code, Read- and Writeable
         0b10011010,
@@ -25,7 +18,7 @@ void init_gdt(void)
         0b10100000, 0
     };
     // 64 bit kernel data segment, off = 16
-    gdt.gdts[2] = (segment_descriptor){
+    gdt.gdts[2] = (segment_descriptor_t){
         0, 0, 0,
         // Present, Segment, Read- and Writeable
         0b10010010,
@@ -33,7 +26,7 @@ void init_gdt(void)
         0b10100000, 0
     };
     // 64 bit user code segment, off = 24
-    gdt.gdts[3] = (segment_descriptor){
+    gdt.gdts[3] = (segment_descriptor_t){
         0, 0, 0,
         // Present, Segment, Read- and Writeable
         0b11111010,
@@ -41,7 +34,7 @@ void init_gdt(void)
         0b10100000, 0
     };
     // 64 bit user data segment, off = 32
-    gdt.gdts[4] = (segment_descriptor){
+    gdt.gdts[4] = (segment_descriptor_t){
         0, 0, 0,
         // Present, Segment, Read- and Writeable
         0b11110010,
@@ -61,44 +54,22 @@ void init_gdt(void)
     gdt.tss.base = 0;
     gdt.tss.reserved = 0;
 
+    gdtr_t gdtr = {
+        .limit = sizeof(gdt) - 1,
+        .gdt_ptr = (uintptr_t) &gdt
+    };
+
     // gdtr size - 1
-    gdtr.size = (uint16_t)(sizeof(gdt) - 1);
+    gdtr.limit = (uint16_t)(sizeof(gdt) - 1);
     gdtr.gdt_ptr = (uintptr_t)&gdt;
 
-    rld_gdt();
+    load_gdt(&gdtr);
 
-    ok("Loaded GDT at %p\n", &gdt);
+    ok("Initialized GDT! Base: %p, Limit: 0x%X\n", gdtr.gdt_ptr, gdtr.limit);
+
 }
 
-void rld_tss(task_state_segment_t *tss_address)
-{
-    static k_spinlock_t tss_lock;
-
-    lock(&tss_lock);
-
-    gdt.tss.base = (uint32_t)((uintptr_t)tss_address >> 32);
-    gdt.tss.descriptor.limit_low = sizeof(struct task_state_segment);
-    gdt.tss.descriptor.base_low = (uint16_t)((uintptr_t)tss_address);
-    gdt.tss.descriptor.base_mid = (uint8_t)((uintptr_t)tss_address >> 16);
-    // Present, Executable, Accessed
-    gdt.tss.descriptor.access_byte = 0b10001001;
-    // size-bit
-    gdt.tss.descriptor.limit_high_and_flags = 0;
-    gdt.tss.descriptor.base_high = (uint8_t)((uintptr_t)tss_address >> 24);
-    gdt.tss.base = 0;
-    gdt.tss.reserved = 0;
-
-    __asm__ volatile (
-        // load tss entry index: 5 * 8 byte
-        "ltr %0"
-        : : "rm" ((uint16_t)40) : "memory"
-    );
-
-    unlock(&tss_lock);
-}
-
-void rld_gdt()
-{
+void load_gdt(gdtr_t* gdtr) {
     __asm__ volatile (
         "mov %0, %%rdi\n"
         "lgdt (%%rdi)\n"
@@ -114,7 +85,7 @@ void rld_gdt()
         "mov %%ax, %%ds\n"
         "mov %%ax, %%fs\n"
         :
-        : "r" (&gdtr)
+        : "r" (gdtr)
         : "memory"
     );
 }

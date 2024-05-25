@@ -1,7 +1,9 @@
 # Nuke built-in rules and variables.
 override MAKEFLAGS += -rR
 
-override IMAGE_NAME := template
+override IMAGE_NAME := TuxerOS
+
+override IMG_DIR := build/
 
 # Convenience macro to reliably declare user overridable variables.
 define DEFAULT_VAR =

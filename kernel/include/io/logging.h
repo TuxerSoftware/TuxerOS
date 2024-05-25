@@ -2,6 +2,7 @@
 
 #include <kernel.h>
 
-void ok(const char *msg, ...);
-void warn(const char *msg, ...);
-void err(const char *msg, ...);
+void ok(const char *format, ...);
+void warn(const char *format, ...);
+void err(const char *format, ...);
+void dbg(const char *format, ...);
