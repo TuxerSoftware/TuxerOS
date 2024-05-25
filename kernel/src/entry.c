@@ -52,6 +52,8 @@ void _start(void) {
         // first there digits after the decimal point infront of it :P. Also then I print the double with .0 so no decimal points.
         // This is very wierd ngl.
     }
+    
+    ASSERT(1 != 2);
 
     // This runs the kmain function from kmain.c remember that the kmain function is only called after everything initializes.
     kmain();

@@ -17,7 +17,7 @@
 #include "arch/x64/gdt.h"
 #include "cpu/lock.h"
 #include "arch/x64/idt/idt.h"
-
+#include "utils/assert.h"
 
 typedef double f64;
 typedef float f32;

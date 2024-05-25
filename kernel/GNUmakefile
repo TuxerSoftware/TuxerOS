@@ -97,36 +97,43 @@ override HEADER_DEPS := $(addprefix obj/,$(CFILES:.c=.c.d) $(ASFILES:.S=.S.d))
 all: bin/$(KERNEL)
 
 src/limine.h:
-	curl -Lo $@ https://github.com/limine-bootloader/limine/raw/trunk/limine.h
+	@echo "LIMINE >>> Downloading limine.h "
+	@curl -Lo $@ https://github.com/limine-bootloader/limine/raw/trunk/limine.h > /dev/null 2>&1
 
 # Link rules for the final kernel executable.
 bin/$(KERNEL): GNUmakefile linker.ld $(OBJ)
-	mkdir -p "$$(dirname $@)"
-	$(KLD) $(OBJ) $(KLDFLAGS) -o $@
+	@echo "LD >>> Linking $@"
+	@mkdir -p "$$(dirname $@)"
+	@$(KLD) $(OBJ) $(KLDFLAGS) -o $@
 
 # Include header dependencies.
 -include $(HEADER_DEPS)
 
 # Compilation rules for *.c files.
 obj/%.c.o: src/%.c GNUmakefile src/limine.h
-	mkdir -p "$$(dirname $@)"
-	$(KCC) $(KCFLAGS) $(KCPPFLAGS) -c $< -o $@
+	@echo "CC >>> Compiling $< to $@"
+	@mkdir -p "$$(dirname $@)"
+	@$(KCC) $(KCFLAGS) $(KCPPFLAGS) -c $< -o $@
 
 # Compilation rules for *.S files.
 obj/%.S.o: src/%.S GNUmakefile
-	mkdir -p "$$(dirname $@)"
-	$(KCC) $(KCFLAGS) $(KCPPFLAGS) -c $< -o $@
+	@echo "CC >>> Compiling $< to $@"
+	@mkdir -p "$$(dirname $@)"
+	@$(KCC) $(KCFLAGS) $(KCPPFLAGS) -c $< -o $@
 
 # Compilation rules for *.asm (nasm) files.
 obj/%.asm.o: src/%.asm GNUmakefile
-	mkdir -p "$$(dirname $@)"
-	nasm $(KNASMFLAGS) $< -o $@
+	@echo "ASM >>> Compiling $< to $@"
+	@mkdir -p "$$(dirname $@)"
+	@nasm $(KNASMFLAGS) $< -o $@
 
 # Remove object files and the final executable.
 .PHONY: clean
 clean:
-	rm -rf bin obj
+	@echo "CLEAN >>> Cleaning"
+	@rm -rf bin obj
 
 .PHONY: distclean
 distclean: clean
-	rm -f src/limine.h
+	@echo "CLEAN >>> Distcleaning"
+	@rm -f src/limine.h
