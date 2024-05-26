@@ -33,6 +33,6 @@ pull request I will review it. Please don't be mad if your pull request gets rej
 ## Credits
 <b>[OSDev Wiki](https://wiki.osdev.org/)</b>: General Information about Operating System Development.</br>
 <b>[Nanobyte Discord Server](https://discord.gg/RgHc5XrCEw)</b>: A lot of help with diffrent things. </br>
-<b>ChatGPT</br>: Explaining a lot of stuff that I didn't understand
+<b>ChatGPT</b>: Explaining a lot of stuff that I didn't understand
 
 
