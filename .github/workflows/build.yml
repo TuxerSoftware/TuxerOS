@@ -17,6 +17,7 @@ jobs:
 
       - name: Build Code
         run: |
+          sudo apt-get install curl
           mkdir build
           make
 
