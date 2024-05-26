@@ -1,3 +1,19 @@
+/*+===================================================================
+  File:      KERNEL.H
+
+  Summary:   This file includes common types and all header,
+             so I can only include this file.
+
+  Structs:   
+
+  Functions: 
+
+  Defines:   
+             
+  Copyright 2024-present Tuxer-Software
+  This file is licensed under the Apache License, Version 2.0
+===================================================================+*/
+
 #pragma once
 
 #include <stdint.h>

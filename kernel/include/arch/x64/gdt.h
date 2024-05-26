@@ -1,3 +1,22 @@
+/*+===================================================================
+  File:      GDT.H
+
+  Summary:   This file is the header file for the Global
+             Descriptor Table (GDT) declerations.
+
+  Structs:   segment_descriptor: Structure for a GDT entry.
+             system_segment_descriptor: Structure for a system
+             segment descriptor.
+
+  Functions: init_gdt: Initializes the GDT.
+             load_gdt: Loads the GDT using inline assembly.
+
+  Defines:   
+
+  Copyright 2024-present Tuxer-Software
+  This file is licensed under the Apache License, Version 2.0
+===================================================================+*/
+
 #pragma once
 
 #include <kernel.h>

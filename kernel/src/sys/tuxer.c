@@ -1,3 +1,25 @@
+/*+===================================================================
+  File:      TUXER.C
+
+  Summary:   This file contains the functions and requests
+             for the Tuxer kernel.
+
+  Structs:   
+
+  Functions: getFramebuffer: Gets the framebuffer.
+             getModule: Gets a module.
+             getKernel: Gets the kernel.
+             getFramebufferResponse: Gets the framebuffer response.
+             getModuleResponse: Gets the module response.
+             getKernelResponse: Gets the kernel response.
+             isBaseRevisionSupported: Checks if the base revision is supported.
+
+  Defines:   
+             
+  Copyright 2024-present Tuxer-Software
+  This file is licensed under the Apache License, Version 2.0
+===================================================================+*/
+
 #include <sys/tuxer.h>
 #include <kernel.h>
 

@@ -1,3 +1,23 @@
+/*+===================================================================
+  File:      STRING.C
+
+  Summary:   This file contains the implementation of
+             memory manipulation and string functions
+             in C
+
+  Structs:   
+
+  Functions: memcpy: Copies memory from src to dest
+             memset: Sets memory to a specific value
+             memmove: Moves memory from src to dest
+             memcmp: Compares memory
+
+  Defines:   
+             
+  Copyright 2024-present Tuxer-Software
+  This file is licensed under the Apache License, Version 2.0
+===================================================================+*/
+
 #include <std/string.h>
 
 

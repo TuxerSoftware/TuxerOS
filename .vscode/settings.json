@@ -1,7 +1,9 @@
 {
     "files.associations": {
+        "*.h": "c",
         "string.h": "c",
         "limine.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "cstdlib": "c"
     }
 }

@@ -1,4 +1,12 @@
-/limine
-/ovmf
+### LIMINE ###
+limine/
+*limine.h
+
+### OUTPUTS ###
+*obj/
+*bin/
 *.iso
 *.hdd
+
+### UTILS ###
+cputils.txt

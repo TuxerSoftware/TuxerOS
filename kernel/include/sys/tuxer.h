@@ -1,3 +1,30 @@
+/*+===================================================================
+  File:      TUXER.H
+
+  Summary:   Contains basic info for the OS. Also stores
+             limine requests and responses.
+
+  Structs:   
+
+  Functions: getFramebuffer: Gets the framebuffer.
+             getModule: Gets a module.
+             getKernel: Gets the kernel.
+             getFramebufferResponse: Gets the framebuffer response.
+             getModuleResponse: Gets the module response.
+             getKernelResponse: Gets the kernel response.
+             isBaseRevisionSupported: Checks if the base revision is supported.
+
+  Defines:   TUXER_VERSION_MAJOR: Major version.
+             TUXER_VERSION_MINOR: Minor version.
+             TUXER_VERSION_PATCH: Patch version.
+             VERSION_CODENAME: Codename.
+             VERSION_STRING: Version string.
+             MODULE_INDEX_RAMFS: Index for the ramfs module.
+             
+  Copyright 2024-present Tuxer-Software
+  This file is licensed under the Apache License, Version 2.0
+===================================================================+*/
+
 #ifndef TUXER_H
 #define TUXER_H
 

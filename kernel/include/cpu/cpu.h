@@ -1,3 +1,19 @@
+/*+===================================================================
+  File:      CPU.H
+
+  Summary:   This file is the header file for CPU routines and 
+             structures.
+
+  Structs:   task_state_segment: Structure for a Task State Segment.
+
+  Functions: 
+
+  Defines:   
+             
+  Copyright 2024-present Tuxer-Software
+  This file is licensed under the Apache License, Version 2.0
+===================================================================+*/
+
 #pragma once
 
 #include <kernel.h>

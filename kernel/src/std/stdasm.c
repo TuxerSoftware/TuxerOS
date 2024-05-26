@@ -1,3 +1,20 @@
+/*+===================================================================
+  File:      STDASM.C
+
+  Summary:   This file contains the implementation of the
+             standard assembly functions in C
+
+  Structs:   
+
+  Functions: hlt: Halts the CPU
+             init_sse: Initializes the SSE registers
+
+  Defines:   
+             
+  Copyright 2024-present Tuxer-Software
+  This file is licensed under the Apache License, Version 2.0
+===================================================================+*/
+
 #include <kernel.h>
 
 void hlt() {

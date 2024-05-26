@@ -1,3 +1,18 @@
+/*+===================================================================
+  File:      ENTRY.C
+
+  Summary:   This file contains the kernel entry point.
+
+  Structs:   
+
+  Functions: _start: The entry point of the kernel
+
+  Defines:   
+             
+  Copyright 2024-present Tuxer-Software
+  This file is licensed under the Apache License, Version 2.0
+===================================================================+*/
+
 #include <kernel.h>
 
 struct flanterm_context *ft_ctx;
