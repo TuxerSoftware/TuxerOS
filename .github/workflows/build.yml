@@ -17,6 +17,7 @@ jobs:
 
       - name: Build Code
         run: |
+          mkdir build
           make
 
       - name: Upload Build Artifact
