@@ -69,7 +69,8 @@ $(IMAGE_NAME).iso: limine kernel
 	@mkdir -p iso_root/boot/limine 
 
 	@echo "ISO >>> Copying limine files"
-	@cp -v limine.cfg limine/limine-bios.sys limine/limine-bios-cd.bin limine/limine-uefi-cd.bin iso_root/boot/limine/ > /dev/null 2>&1
+	@cp -v boot/limine.cfg limine/limine-bios.sys limine/limine-bios-cd.bin limine/limine-uefi-cd.bin iso_root/boot/limine/ > /dev/null 2>&1
+	@cp -v boot/bootbg.jpg boot/FONT.F16 iso_root/ > /dev/null 2>&1
 	
 	@echo "ISO >>> Creating installing EFI loaders"
 	@mkdir -p iso_root/EFI/BOOT > /dev/null 2>&1
