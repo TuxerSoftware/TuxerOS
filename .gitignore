@@ -6,6 +6,7 @@
 *bin/
 *.iso
 *.hdd
+build/
 
 ### UTILS ###
 cputils.txt

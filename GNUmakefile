@@ -3,7 +3,7 @@ override MAKEFLAGS += -rR --no-print-directory -j$(shell nproc)
 
 override IMAGE_NAME := TuxerOS
 
-override IMG_DIR := build/
+override IMAGE_DIR := build/
 
 # Convenience macro to reliably declare user overridable variables.
 define DEFAULT_VAR =
@@ -16,15 +16,15 @@ define DEFAULT_VAR =
 endef
 
 .PHONY: all
-all: $(IMAGE_NAME).iso
+all: $(IMAGE_DIR)/$(IMAGE_NAME).iso
 
 .PHONY: all-hdd
 all-hdd: $(IMAGE_NAME).hdd
 
 .PHONY: run
-run: $(IMAGE_NAME).iso
-	@echo "QEMU >>> Running $(IMAGE_NAME).iso"
-	@qemu-system-x86_64 -M q35 -m 2G -cdrom $(IMAGE_NAME).iso -boot d --no-reboot --no-shutdown
+run: $(IMAGE_DIR)/$(IMAGE_NAME).iso
+	@echo "QEMU >>> Running $(IMAGE_DIR)/$(IMAGE_NAME).iso"
+	@qemu-system-x86_64 -M q35 -m 2G -cdrom $(IMAGE_DIR)/$(IMAGE_NAME).iso -boot d --no-reboot --no-shutdown
 
 .PHONY: run-uefi
 run-uefi: ovmf $(IMAGE_NAME).iso
@@ -57,7 +57,7 @@ kernel:
 	@echo "KERNEL >>> Building kernel"
 	@$(MAKE) -C kernel > /dev/null 2>&1
 
-$(IMAGE_NAME).iso: limine kernel
+$(IMAGE_DIR)/$(IMAGE_NAME).iso: limine kernel
 	@echo "ISO >>> Removing old files"
 	@rm -rf iso_root
 
@@ -82,10 +82,10 @@ $(IMAGE_NAME).iso: limine kernel
 		-no-emul-boot -boot-load-size 4 -boot-info-table \
 		--efi-boot boot/limine/limine-uefi-cd.bin \
 		-efi-boot-part --efi-boot-image --protective-msdos-label \
-		iso_root -o $(IMAGE_NAME).iso > /dev/null 2>&1
+		iso_root -o $(IMAGE_DIR)/$(IMAGE_NAME).iso > /dev/null 2>&1
 
 	@echo "ISO >>> Installing limine"
-	@./limine/limine bios-install $(IMAGE_NAME).iso > /dev/null 2>&1
+	@./limine/limine bios-install $(IMAGE_DIR)/$(IMAGE_NAME).iso > /dev/null 2>&1
 	
 	@echo "ISO >>> Cleaning up"
 	@rm -rf iso_root

@@ -1,0 +1,26 @@
+name: Build TuxerOS for x64
+
+on:
+  push:
+    branches:
+      - main
+  cron:
+    - '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Code
+        run: |
+          make
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: TuxerOS
+          path: build/TuxerOS.iso
