@@ -19,6 +19,8 @@ struct flanterm_context *ft_ctx;
 
 extern void kmain();
 
+
+
 void _start(void) {
     
     if (isBaseRevisionSupported() == false) {
@@ -52,6 +54,7 @@ void _start(void) {
     );
 
     init_gdt();
+    init_idt();
 
 
     struct limine_file *file = getKernel();
@@ -70,8 +73,10 @@ void _start(void) {
     
     ASSERT(1 != 2);
 
+    asm ("int $0x69");
+    
     // This runs the kmain function from kmain.c remember that the kmain function is only called after everything initializes.
-    kmain();
+    //kmain();
 
     hlt();
 }

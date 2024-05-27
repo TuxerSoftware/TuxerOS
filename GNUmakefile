@@ -55,7 +55,7 @@ limine:
 .PHONY: kernel
 kernel:
 	@echo "KERNEL >>> Building kernel"
-	@$(MAKE) -C kernel > /dev/null 2>&1
+	@$(MAKE) -C kernel
 
 $(IMAGE_DIR)/$(IMAGE_NAME).iso: limine kernel
 	@echo "ISO >>> Removing old files"

@@ -84,7 +84,7 @@ void init_gdt(void)
 
     load_gdt();
 
-    ok("GDT initialized. Base: %p, Size: 0x%X\n", gdtr.gdt_ptr, gdtr.size);
+    ok("GDT initialized. Base: 0x%p, Size: 0x0%X\n", gdtr.gdt_ptr, gdtr.size);
 }
 
 void load_gdt() {
