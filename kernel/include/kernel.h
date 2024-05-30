@@ -26,6 +26,7 @@
 #include "cpu/lock.h"
 #include "arch/x64/idt/idt.h"
 #include "utils/assert.h"
+#include "utils/panic.h"
 
 typedef double f64;
 typedef float f32;

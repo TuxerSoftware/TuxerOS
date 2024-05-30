@@ -65,7 +65,7 @@ void _start(void) {
     
     ASSERT(1 != 1);
 
-    asm ("int $0x3");
+    asm ("int $0x21");
     
     // This runs the kmain function from kmain.c remember that the kmain function is only called after everything initializes.
     //kmain();

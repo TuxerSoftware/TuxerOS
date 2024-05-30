@@ -42,11 +42,10 @@ void init_idt()
 void excp_handler(idt_frame_t frame)
 {
 	if (frame.vector < 0x20) {
-		// TODO: Handle excp
-		printf("Exception: %d\n", frame.vector);
+		panic(frame, 0xDEADBEEF, "CPU Exception: 0x%X", frame.vector);
 		hlt();
 	} else if (frame.vector >= 0x20 && frame.vector <= 0x2f) {
-		// TODO: Handle IRQs
+		printf("IRQ: %d\n", frame.vector - 0x20);
 	} else if (frame.vector == 0x80) {
 		// TODO: Handle system calls.
 	}
