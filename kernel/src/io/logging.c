@@ -1,21 +1,10 @@
-/*+===================================================================
-  File:      LOGGING.C
-
-  Summary:   This file contains the implementation of the
-             logger in C
-
-  Structs:   
-
-  Functions: ok: Logs a success message
-             warn: Logs a warning message
-             err: Logs an error message
-             dbg: Logs a debug message
-
-  Defines:   
-             
-  Copyright 2024-present Tuxer-Software
-  This file is licensed under the Apache License, Version 2.0
-===================================================================+*/
+/*
+  File:         logging.c
+  Description:  Contains the implementation for the logging
+                routines
+  Author:       RaphtikAtGHG
+  © 2024-present TuxerOS contributers
+*/
 
 #include <kernel.h>
 

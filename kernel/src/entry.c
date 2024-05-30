@@ -1,17 +1,9 @@
-/*+===================================================================
-  File:      ENTRY.C
-
-  Summary:   This file contains the kernel entry point.
-
-  Structs:   
-
-  Functions: _start: The entry point of the kernel
-
-  Defines:   
-             
-  Copyright 2024-present Tuxer-Software
-  This file is licensed under the Apache License, Version 2.0
-===================================================================+*/
+/*
+  File:         entry.c
+  Description:  Contains the kernel entry point
+  Author:       RaphtikAtGHG
+  © 2024-present TuxerOS contributers
+*/
 
 #include <kernel.h>
 
@@ -71,9 +63,9 @@ void _start(void) {
         // This is very wierd ngl.
     }
     
-    ASSERT(1 != 2);
+    ASSERT(1 != 1);
 
-    asm ("int $0x69");
+    asm ("int $0x3");
     
     // This runs the kmain function from kmain.c remember that the kmain function is only called after everything initializes.
     //kmain();

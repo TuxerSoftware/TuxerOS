@@ -1,20 +1,9 @@
-/*+===================================================================
-  File:      GDT.C
-
-  Summary:   This file contains the implementation of the
-             Global Descriptor Table (GDT) in C
-
-  Structs:   gdt: The structure that holds the GDT entries
-             gdtr: The structure that holds the GDT register
-
-  Functions: init_gdt: Initializes the GDT
-             load_gdt: Loads the GDT
-
-  Defines:   
-             
-  Copyright 2024-present Tuxer-Software
-  This file is licensed under the Apache License, Version 2.0
-===================================================================+*/
+/*
+  File:         gdt.c
+  Description:  Contains the implementation for the GDT
+  Author:       RaphtikAtGHG
+  © 2024-present TuxerOS contributers
+*/
 
 #include <kernel.h>
 

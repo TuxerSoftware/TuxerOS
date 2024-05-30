@@ -1,20 +1,10 @@
-/*+===================================================================
-  File:      LOCK.H
-
-  Summary:   This file contains some CPU locking primitives,
-             using GCC atomic builtins.
-
-  Structs:   k_spinlock_t: Structure for a spinlock.
-
-  Functions: spin_lock: Locks a spinlock.
-             spin_unlock: Unlocks a spinlock.
-
-  Defines:   
-             
-  Copyright 2024-present Tuxer-Software
-  This file is licensed under the Apache License, Version 2.0
-===================================================================+*/
-
+/*
+  File:         lock.h
+  Description:  Contains the definitions for the CPU
+                lock routines
+  Author:       RaphtikAtGHG
+  © 2024-present TuxerOS contributers
+*/
 #pragma once
 
 #include <kernel.h>

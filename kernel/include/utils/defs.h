@@ -1,19 +1,10 @@
-/*+===================================================================
-  File:      DEFS.H
-
-  Summary:   This file includes compiler definitions.
-
-  Structs:   
-
-  Functions:
-
-  Defines:   comp_packed: Packed attribute for structs.
-             aligned: Aligned attribute for structs.
-             noret: No return attribute for functions.
-             
-  Copyright 2024-present Tuxer-Software
-  This file is licensed under the Apache License, Version 2.0
-===================================================================+*/
+/*
+  File:         defs.h
+  Description:  Contains compiler specific definitions
+                (GCC) in this case
+  Author:       RaphtikAtGHG
+  © 2024-present TuxerOS contributers
+*/
 
 #pragma once
 

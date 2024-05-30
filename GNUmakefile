@@ -1,3 +1,8 @@
+#  File:         Main Makefile
+#  Description:  This is the main makefile no explanation needed
+#  Author:       RaphtikAtGHG
+#  © 2024-present TuxerOS contributers
+
 # Nuke built-in rules and variables.
 override MAKEFLAGS += -rR --no-print-directory -j$(shell nproc)
 
@@ -24,7 +29,7 @@ all-hdd: $(IMAGE_NAME).hdd
 .PHONY: run
 run: $(IMAGE_DIR)/$(IMAGE_NAME).iso
 	@echo "QEMU >>> Running $(IMAGE_DIR)$(IMAGE_NAME).iso"
-	@qemu-system-x86_64 -M q35 -m 2G -cdrom $(IMAGE_DIR)/$(IMAGE_NAME).iso -boot d --no-reboot --no-shutdown
+	@qemu-system-x86_64 -M pc -m 2G -cdrom $(IMAGE_DIR)$(IMAGE_NAME).iso -boot d --no-reboot --no-shutdown -d int,cpu_reset,unimp -D qemu.log -monitor stdio
 
 .PHONY: run-uefi
 run-uefi: ovmf $(IMAGE_NAME).iso

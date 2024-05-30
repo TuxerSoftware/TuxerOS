@@ -1,7 +1,13 @@
+/*
+  File:         linker.ld
+  Description:  Contains the linker script for the TuxerOS kernel
+  Author:       RaphtikAtGHG
+  © 2024-present TuxerOS contributers
+*/
+
 OUTPUT_FORMAT(elf64-x86-64)
 OUTPUT_ARCH(i386:x86-64)
 
-/* We want the symbol _start to be our entry point */
 ENTRY(_start)
 
 PHDRS
@@ -43,7 +49,7 @@ SECTIONS
     } :data
 
     .dynamic : {
-        *(.dynamic .dynamic.*)
+        *(.dynamic .dynamic.* .dyn .dyn.*)
     } :data :dynamic
 
     .bss : {

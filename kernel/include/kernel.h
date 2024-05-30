@@ -1,18 +1,10 @@
-/*+===================================================================
-  File:      KERNEL.H
-
-  Summary:   This file includes common types and all header,
-             so I can only include this file.
-
-  Structs:   
-
-  Functions: 
-
-  Defines:   
-             
-  Copyright 2024-present Tuxer-Software
-  This file is licensed under the Apache License, Version 2.0
-===================================================================+*/
+/*
+  File:         kernel.h
+  Description:  Conatins all header so I only need to include
+                this file in the source files
+  Author:       RaphtikAtGHG
+  © 2024-present TuxerOS contributers
+*/
 
 #pragma once
 

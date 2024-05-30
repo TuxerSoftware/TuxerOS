@@ -1,26 +1,12 @@
-/*+===================================================================
-  File:      STDIO.H
-
-  Summary:   This file contains declearations for 
-             standard terminal I/O functions.
-
-  Structs:   
-
-  Functions: putc: Puts a character to the terminal.
-             puts: Puts a string to the terminal.
-
-             printf: Prints a formatted string to the terminal.
-             sprintf: Prints a formatted string to a buffer.
-             snprintf: Prints a formatted string to a buffer with a limit.
-             vprintf: Prints a formatted string to the terminal with a va_list.
-             fctprintf: Prints a formatted string to a custom output function.
-             vsnprintf: Prints a formatted string to a buffer with a limit with a va_list.
-
-  Defines:    
-             
-  Copyright 2024-present Tuxer-Software
-  This file is licensed under the Apache License, Version 2.0
-===================================================================+*/
+/*
+  File:         stdio.h
+  Description:  Contains the Definitions for the standard
+                input/output routines
+  Author:       RaphtikAtGHG
+  Credit:       Marco Paland (info@paland.com)
+                2014-2019, PALANDesign Hannover, Germany
+  © 2024-present TuxerOS contributers
+*/
 
 #pragma once
 

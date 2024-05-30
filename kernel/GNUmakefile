@@ -1,3 +1,8 @@
+#  File:         Kernel Makefile
+#  Description:  This is the makefile fdor building the kernel
+#  Author:       RaphtikAtGHG
+#  © 2024-present TuxerOS contributers
+
 # Nuke built-in rules and variables.
 override MAKEFLAGS += -rR
 

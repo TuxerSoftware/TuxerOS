@@ -8,5 +8,8 @@
 *.hdd
 build/
 
+### TESTING ###
+qemu.log
+
 ### UTILS ###
 cputils.txt

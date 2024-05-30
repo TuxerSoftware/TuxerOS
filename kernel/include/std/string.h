@@ -1,21 +1,10 @@
-/*+===================================================================
-  File:      STRING.H
-
-  Summary:   This file contains delcerations for memory manipulation
-             and string functions.
-
-  Structs:   
-
-  Functions: memcmp: Compares two memory blocks.
-             memcpy: Copies memory.
-             memmove: Moves memory.
-             memset: Sets memory.
-
-  Defines:
-             
-  Copyright 2024-present Tuxer-Software
-  This file is licensed under the Apache License, Version 2.0
-===================================================================+*/
+/*
+  File:         string.h  
+  Description:  Contains the Definitions for the string
+                implementation
+  Author:       RaphtikAtGHG
+  © 2024-present TuxerOS contributers
+*/
 
 #ifndef _STRING_H_
 #define _STRING_H_
