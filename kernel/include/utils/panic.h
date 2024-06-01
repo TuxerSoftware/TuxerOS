@@ -8,4 +8,4 @@
 
 #pragma once
 
-void panic(idt_frame_t frame, int backupErrorCode ,const char* message, ...);
+void panic(idt_frame_t frame, uint64_t backupErrorCode ,const char* message, ...);

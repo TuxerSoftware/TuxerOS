@@ -83,9 +83,7 @@ void _start(void) {
         // This is very wierd ngl.
     }
 
-    uint64_t test = 0b10;
-    setBit(&test, 0);
-    printf("Test: %d\n", test);
+    asm ("int $0x10");
 
     hlt();
 }

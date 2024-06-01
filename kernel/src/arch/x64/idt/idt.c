@@ -44,7 +44,11 @@ void init_idt()
 void excp_handler(idt_frame_t frame)
 {
 	if (frame.vector < 0x20) {
-		panic(frame, 0xDEADBEEF, "CPU Exception: 0x%X", frame.vector);
+		uint64_t ecns = getBits(frame.err, 0, 18);
+		uint64_t bec = ecns;
+		setBit(&bec, 0);
+		setBit(&bec, 1);
+		panic(frame, bec, "CPU Exception: 0x%X", frame.vector);
 		hlt();
 	} else if (frame.vector >= 0x20 && frame.vector <= 0x2f) {
 		printf("IRQ: %d\n", frame.vector - 0x20);

@@ -12,3 +12,5 @@
 uint8_t getBit(uint64_t num, uint64_t bit);
 
 void setBit(uint64_t *num, uint64_t bit);
+
+uint64_t getBits(uint64_t num, uint64_t start, uint64_t count);

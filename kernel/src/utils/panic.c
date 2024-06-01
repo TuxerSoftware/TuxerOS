@@ -8,18 +8,18 @@
 
 #include <kernel.h>
 
-void panic(idt_frame_t frame, int backupErrorCode ,const char* message, ...) {
+void panic(idt_frame_t frame, uint64_t backupErrorCode ,const char* message, ...) {
     va_list args;
     va_start(args, message);
     printf("PANIC: ");
     vprintf(message, args);
     va_end(args);
     printf("\n\n");
-    if (frame.err != 0) {
-        printf("Error code: 0x%X\n", frame.err);
-    } else {
-        printf("Error code: 0x%X\n", backupErrorCode);
+
+    if (frame.err == 0) {
+        frame.err = backupErrorCode;
     }
+    parseError(frame.err, frame.vector);
 
     printf("RIP: 0x%p\n", frame.rip);
     printf("RSP: 0x%p\n", frame.rsp);
