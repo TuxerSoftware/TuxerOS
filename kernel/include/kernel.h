@@ -15,6 +15,7 @@
 
 #include "std/stdasm.h"
 #include "sys/tuxer.h"
+#include "std/string.h"
 #include "flanterm/flanterm.h"
 #include "flanterm/backends/fb.h"
 #include "std/stdio.h"
@@ -27,6 +28,8 @@
 #include "arch/x64/idt/idt.h"
 #include "utils/assert.h"
 #include "utils/panic.h"
+#include "types/bitmap.h"
+#include "mm/pmm.h"
 
 typedef double f64;
 typedef float f32;

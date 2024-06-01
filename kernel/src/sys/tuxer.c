@@ -24,13 +24,6 @@ volatile static struct limine_kernel_file_request kernel = {
     .revision = 0
 };
 
-
-__attribute__((used, section(".requests")))
-volatile static struct limine_hhdm_request hhdm_request = {
-    .id = LIMINE_HHDM_REQUEST,
-    .revision = 0
-};
-
 __attribute__((used, section(".requests")))
 volatile static struct limine_module_request module_request = {
     .id = LIMINE_MODULE_REQUEST,

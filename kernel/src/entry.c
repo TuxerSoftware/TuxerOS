@@ -11,7 +11,23 @@ struct flanterm_context *ft_ctx;
 
 extern void kmain();
 
+pmm_ctx_t pmm_ctx;
 
+__attribute__((used, section(".requests")))
+volatile struct limine_memmap_request memmap_request = { 
+    .id = LIMINE_MEMMAP_REQUEST,
+	.revision = 0
+};
+
+__attribute__((used, section(".requests")))
+volatile struct limine_hhdm_request hhdm_request = { 
+    .id = LIMINE_HHDM_REQUEST,
+    .revision = 0 
+};
+
+volatile struct limine_framebuffer *framebuffer;
+volatile struct limine_memmap_response *memmap;
+volatile struct limine_hhdm_response *hhdm;
 
 void _start(void) {
     
@@ -27,6 +43,9 @@ void _start(void) {
     init_sse();
 
     struct limine_framebuffer *framebuffer = getFramebuffer();
+
+    memmap = memmap_request.response;
+	hhdm = hhdm_request.response;
 
     
     ft_ctx = flanterm_fb_init(
@@ -47,6 +66,7 @@ void _start(void) {
 
     init_gdt();
     init_idt();
+    init_pmm(&pmm_ctx, memmap, hhdm);
 
 
     struct limine_file *file = getKernel();
@@ -63,11 +83,9 @@ void _start(void) {
         // This is very wierd ngl.
     }
 
-    assert(1 != 1);
-
-    int test = (int)NULL;
-
-    nullAssert(test);
+    void *ptr = pmm_request_pages(&pmm_ctx, 1);
+    memset(ptr, 0, 4096);
+    pmm_free_pages(&pmm_ctx, ptr, 1);
 
     hlt();
 }
