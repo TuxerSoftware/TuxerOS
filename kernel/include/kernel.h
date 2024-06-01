@@ -30,6 +30,7 @@
 #include "utils/panic.h"
 #include "types/bitmap.h"
 #include "mm/pmm.h"
+#include "utils/binutils.h"
 
 typedef double f64;
 typedef float f32;

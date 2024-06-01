@@ -83,9 +83,9 @@ void _start(void) {
         // This is very wierd ngl.
     }
 
-    void *ptr = pmm_request_pages(&pmm_ctx, 1);
-    memset(ptr, 0, 4096);
-    pmm_free_pages(&pmm_ctx, ptr, 1);
+    uint64_t test = 0b10;
+    setBit(&test, 0);
+    printf("Test: %d\n", test);
 
     hlt();
 }
