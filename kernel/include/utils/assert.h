@@ -8,11 +8,16 @@
 
 #include <kernel.h>
 
-#define ASSERT(condition)                                         \
-    do {                                                          \
-        if (!(condition)) {                                       \
-            err("Assertion failed: (%s). File: %s, Line: %d\n",   \
-                    #condition, __FILE__ ,__LINE__);              \
-                    break;                                        \
-        }                                                         \
+#define assert(condition)                                                                     \
+    do {                                                                                      \
+        if (!(condition)) {                                                                   \
+            err("Assertion failed at %s:%d in function %s!\n", __FILE__, __LINE__, __func__); \
+        }                                                                                     \
+    } while (0)
+
+#define nullAssert(obj)                         \
+    do {                                        \
+        if (obj == NULL) {                       \
+            err("Null assertion failed at %s:%d in function %s!\n", __FILE__, __LINE__, __func__); \
+        }                                       \
     } while (0)

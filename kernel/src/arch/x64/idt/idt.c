@@ -37,6 +37,8 @@ void init_idt()
 
 	load_idt((uint64_t)&idt_p);
 	asm("cli");
+
+	ok("IDT initialized. Base: 0x%p, Limit: 0x%X\n", idt_p.base, idt_p.limit);
 }
 
 void excp_handler(idt_frame_t frame)
