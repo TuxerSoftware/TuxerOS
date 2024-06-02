@@ -32,6 +32,7 @@
 #include "mm/pmm.h"
 #include "utils/binutils.h"
 #include "arch/x64/idt/errorParser.h"
+#include "io/io.h"
 
 typedef double f64;
 typedef float f32;

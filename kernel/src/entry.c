@@ -83,7 +83,10 @@ void _start(void) {
         // This is very wierd ngl.
     }
 
-    asm ("int $0x10");
+    
+    // Output to serial COM1
+    outb(0x3f8, 'a');
+
 
     hlt();
 }
