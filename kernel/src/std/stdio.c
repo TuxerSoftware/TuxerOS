@@ -12,6 +12,10 @@
 
 void putc(char c) {
     flanterm_write(ft_ctx, &c, 1);
+    outb(0x3F8, c);
+    if (c == '\n') {
+        outb(0x3F8, '\r');
+    }
 }
 
 void puts(const char *s) {
