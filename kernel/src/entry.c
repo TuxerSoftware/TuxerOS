@@ -83,6 +83,11 @@ void _start(void) {
         // This is very wierd ngl.
     }
 
+    int status = init_ata();
+
+    if(status != ATA_OKAY) {
+        err("Failed to initialize ATA driver: 0x%X\n", status);
+    }
 
     hlt();
 }

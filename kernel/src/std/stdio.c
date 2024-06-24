@@ -61,8 +61,6 @@ void puts(const char *s) {
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "printf.h"
-
 
 void _putchar(char character) {
     putc(character);

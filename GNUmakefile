@@ -3,12 +3,12 @@
 #  Author:       RaphtikAtGHG
 #  © 2024-present TuxerOS contributers
 
-# Nuke built-in rules and variables.
-override MAKEFLAGS += -rR --no-print-directory -j$(shell nproc)
-
 override IMAGE_NAME := TuxerOS
 
 override IMAGE_DIR := build/
+
+include kernel/config.mk
+
 
 # Convenience macro to reliably declare user overridable variables.
 define DEFAULT_VAR =
@@ -27,24 +27,26 @@ all: $(IMAGE_DIR)/$(IMAGE_NAME).iso
 all-hdd: $(IMAGE_NAME).hdd
 
 .PHONY: run
+
+.PHONY: run
 run: $(IMAGE_DIR)/$(IMAGE_NAME).iso
 	@echo "QEMU >>> Running $(IMAGE_DIR)$(IMAGE_NAME).iso"
-	@qemu-system-x86_64 -M pc -m 2G -cdrom $(IMAGE_DIR)$(IMAGE_NAME).iso -boot d --no-reboot --no-shutdown -d int,cpu_reset,unimp -D qemu.log -monitor stdio
+	@qemu-system-x86_64 $(QEMUARGS) -cdrom $(IMAGE_DIR)$(IMAGE_NAME).iso
 
 .PHONY: run-uefi
-run-uefi: ovmf $(IMAGE_NAME).iso
+run-uefi: ovmf $(IMAGE_DIR)/$(IMAGE_NAME).iso
 	@echo "QEMU >>> Running $(IMAGE_NAME).iso with UEFI firmware"
-	@qemu-system-x86_64 -M q35 -m 2G -bios ovmf/OVMF.fd -cdrom $(IMAGE_NAME).iso -boot d
+	@qemu-system-x86_64 $(QEMUARGS) -bios ovmf/OVMF.fd -cdrom $(IMAGE_DIR)$(IMAGE_NAME).iso
 
 .PHONY: run-hdd
-run-hdd: $(IMAGE_NAME).hdd
+run-hdd: $(IMAGE_DIR)/$(IMAGE_NAME).hdd
 	@echo "QEMU >>> Running $(IMAGE_NAME).hdd"
-	@qemu-system-x86_64 -M q35 -m 2G -hda $(IMAGE_NAME).hdd
+	@qemu-system-x86_64 $(QEMUARGS) -hda $(IMAGE_DIR)/$(IMAGE_NAME).hdd
 
 .PHONY: run-hdd-uefi
-run-hdd-uefi: ovmf $(IMAGE_NAME).hdd
+run-hdd-uefi: ovmf $(IMAGE_DIR)/$(IMAGE_NAME).hdd
 	@echo "QEMU >>> Running $(IMAGE_NAME).hdd with UEFI firmware"
-	@qemu-system-x86_64 -M q35 -m 2G -bios ovmf/OVMF.fd -hda $(IMAGE_NAME).hdd
+	@qemu-system-x86_64 $(QEMUARGS) -bios ovmf/OVMF.fd -hda $(IMAGE_DIR)/$(IMAGE_NAME).hdd
 
 ovmf:
 	@echo "UEFI >>> Downloading firmware"
@@ -70,7 +72,7 @@ $(IMAGE_DIR)/$(IMAGE_NAME).iso: limine kernel
 	@mkdir -p iso_root/boot
 
 	@echo "ISO >>> Copying kernel"
-	@cp -v kernel/bin/tuxer iso_root/boot/ > /dev/null 2>&1
+	@cp -v kernel/bin/tuxer.elf iso_root/boot/ > /dev/null 2>&1
 	@mkdir -p iso_root/boot/limine 
 
 	@echo "ISO >>> Copying limine files"
@@ -95,29 +97,33 @@ $(IMAGE_DIR)/$(IMAGE_NAME).iso: limine kernel
 	@echo "ISO >>> Cleaning up"
 	@rm -rf iso_root
 
-$(IMAGE_NAME).hdd: limine kernel
+HDD_IMAGE = $(IMAGE_DIR)$(IMAGE_NAME).hdd
 
+$(IMAGE_DIR)/$(IMAGE_NAME).hdd: limine kernel
 	@echo "HDD >>> Removing old files"
-	@rm -f $(IMAGE_NAME).hdd
+	@rm -f $(HDD_IMAGE) > /dev/null 2>&1
 
 	@echo "HDD >>> Creating the HDD image"
-	@dd if=/dev/zero bs=1M count=0 seek=64 of=$(IMAGE_NAME).hdd
+	@dd if=/dev/zero bs=1M count=64 of=$(HDD_IMAGE) > /dev/null 2>&1
 
 	@echo "HDD >>> Partitioning the HDD image"
-	@sgdisk $(IMAGE_NAME).hdd -n 1:2048 -t 1:ef00
+	@sgdisk $(HDD_IMAGE) -n 1:2048 -t 1:ef00 > /dev/null 2>&1
 
 	@echo "HDD >>> Installing limine"
-	@./limine/limine bios-install $(IMAGE_NAME).hdd > /dev/null 2>&1
+	@./limine/limine bios-install $(HDD_IMAGE) > /dev/null 2>&1
 
-	@echo "HDD >>> Formatting the HDD image"
-	@mformat -i $(IMAGE_NAME).hdd@@1M > /dev/null 2>&1
+	@echo "HDD >>> Formatting the partition"
+	@mformat -i  $(HDD_IMAGE)@@1M -L32 #> /dev/null 2>&1
 
 	@echo "HDD >>> Copying files"
-	@mmd -i $(IMAGE_NAME).hdd@@1M ::/EFI ::/EFI/BOOT ::/boot ::/boot/limine > /dev/null 2>&1
-	@mcopy -i $(IMAGE_NAME).hdd@@1M kernel/bin/kernel ::/boot > /dev/null 2>&1
-	@mcopy -i $(IMAGE_NAME).hdd@@1M limine.cfg limine/limine-bios.sys ::/boot/limine > /dev/null 2>&1
-	@mcopy -i $(IMAGE_NAME).hdd@@1M limine/BOOTX64.EFI ::/EFI/BOOT > /dev/null 2>&1
-	@mcopy -i $(IMAGE_NAME).hdd@@1M limine/BOOTIA32.EFI ::/EFI/BOOT > /dev/null 2>&1
+	@mmd -i $(HDD_IMAGE)@@1M ::/EFI ::/EFI/BOOT ::/boot ::/boot/limine > /dev/null 2>&1
+	@mcopy -i $(HDD_IMAGE)@@1M kernel/bin/tuxer.elf ::/boot > /dev/null 2>&1
+	@mcopy -i $(HDD_IMAGE)@@1M boot/limine.cfg  limine/limine-bios.sys ::/boot/limine > /dev/null 2>&1
+	@mcopy -i $(HDD_IMAGE)@@1M boot/bootbg.jpg boot/FONT.F16 ::/ > /dev/null 2>&1
+	@mcopy -i $(HDD_IMAGE)@@1M limine/BOOTX64.EFI ::/EFI/BOOT > /dev/null 2>&1
+	@mcopy -i $(HDD_IMAGE)@@1M limine/BOOTIA32.EFI ::/EFI/BOOT > /dev/null 2>&1
+
+	@echo "HDD >>> Finished"
 
 .PHONY: clean
 clean:

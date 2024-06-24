@@ -1,5 +1,6 @@
 ### LIMINE ###
 *limine.h
+limine/
 
 ### OUTPUTS ###
 *obj/
@@ -7,6 +8,7 @@
 *.iso
 *.hdd
 build/
+
 
 ### TESTING ###
 qemu.log

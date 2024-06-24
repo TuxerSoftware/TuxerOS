@@ -3,8 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/kernel/src"
-                "${workspaceFolder}/kernel/include",
+                "${workspaceFolder}/kernel/src",
+                "${workspaceFolder}/kernel/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

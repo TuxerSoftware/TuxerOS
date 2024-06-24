@@ -33,6 +33,7 @@
 #include "utils/binutils.h"
 #include "arch/x64/idt/errorParser.h"
 #include "io/io.h"
+#include "fs/ata.h"
 
 typedef double f64;
 typedef float f32;
