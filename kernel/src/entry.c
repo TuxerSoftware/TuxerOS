@@ -89,5 +89,19 @@ void _start(void) {
         err("Failed to initialize ATA driver: 0x%X\n", status);
     }
 
+    const PMBR_t* mbr = getPMBR();
+    GPTPartTable_t gpt = getGPTPartTable();
+
+    printf("PMBR:\n");
+    printf("\tBoot Indicator: 0x%X\n", mbr->boot_indicator);
+    printf("\tStarting Head: %d\n", mbr->starting_head);
+    printf("\tStarting Sector Cylinder: %d\n", mbr->starting_sector_cylinder);
+    printf("\tSystem ID: 0x%X\n", mbr->system_id);
+    printf("\tEnding Head: %d\n", mbr->ending_head);
+    printf("\tEnding Sector Cylinder: %d\n", mbr->ending_sector_cylinder);
+    printf("\tStarting LBA: %d\n", mbr->starting_lba);
+    printf("\tEnding LBA: %d\n", mbr->ending_lba);
+
+
     hlt();
 }

@@ -113,7 +113,7 @@ $(IMAGE_DIR)/$(IMAGE_NAME).hdd: limine kernel
 	@./limine/limine bios-install $(HDD_IMAGE) > /dev/null 2>&1
 
 	@echo "HDD >>> Formatting the partition"
-	@mformat -i  $(HDD_IMAGE)@@1M -L32 #> /dev/null 2>&1
+	@mformat -i $(HDD_IMAGE)@@1M -L32 -v "TUXEROS    " #> /dev/null 2>&1
 
 	@echo "HDD >>> Copying files"
 	@mmd -i $(HDD_IMAGE)@@1M ::/EFI ::/EFI/BOOT ::/boot ::/boot/limine > /dev/null 2>&1

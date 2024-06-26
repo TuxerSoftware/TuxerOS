@@ -20,6 +20,7 @@ extern char ata_name[40];
 #define ATA_DISK_ERR            0x3
 #define ATA_DISK_NOT_READY      0x4
 
+#define ATA_SECTOR_SIZE 512
 
 /*enum {
 	ATA_OKAY,

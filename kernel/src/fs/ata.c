@@ -46,7 +46,7 @@ uint8_t ata_identify(uint16_t ata, uint8_t type)
 	if (ata_poll() != ATA_OKAY)
 		return ATA_DISK_ERR;
 
-	uint8_t buf[512];
+	uint8_t buf[ATA_SECTOR_SIZE];
 	ata_read(0, buf, 1);
 
 	for (uint8_t i = 0; i < 40; i += 2) {
@@ -73,7 +73,7 @@ uint8_t ata_read(uint32_t lba, uint8_t *buffer, uint32_t sector_count)
 	uint16_t val = 0;
 	uint32_t i = 0;
 
-	for (; i < sector_count * 512; i += 2) {
+	for (; i < sector_count * ATA_SECTOR_SIZE; i += 2) {
 		if (ata_poll() != ATA_OKAY)
 			return ATA_DISK_ERR;
 		val = inw(ata_base);
@@ -101,11 +101,11 @@ uint8_t ata_write(uint32_t lba, uint8_t *buffer, uint32_t sector_count)
 	uint16_t val = 0;
 	uint32_t i = 0;
 
-	for (; i < sector_count * 512; i += 2) {
+	for (; i < sector_count * ATA_SECTOR_SIZE; i += 2) {
 		if (ata_poll() != ATA_OKAY)
 			return ATA_DISK_ERR;
 		val = buffer[i];
-		if (i + 1 < sector_count * 512)
+		if (i + 1 < sector_count * ATA_SECTOR_SIZE)
 			val |= ((uint16_t)buffer[i + 1] << 8);
 		outw(ata_base, val);
 	}
